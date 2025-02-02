@@ -1,0 +1,6 @@
+#BorosilicateGlass_mpt
+/control/alias mptName borosilicateGlass
+/control/alias dataDirectory lappd/data/material_mpt/{mptName}
+
+/mpt/{mptName}/addProperty RINDEX {dataDirectory}/rIndex.txt nm unitless 
+/mpt/{mptName}/addProperty ABSLENGTH {dataDirectory}/absLength.txt nm mm  

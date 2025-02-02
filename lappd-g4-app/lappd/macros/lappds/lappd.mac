@@ -1,0 +1,21 @@
+#lappdGeoSettings
+/lappd/includeStrips true #just for visualization
+
+/lappd/photocathodeWindowMatName borosilicateGlass
+/lappd/housingWindowMatName glass
+
+/lappd/photocathodeSizeX 191.5 mm
+/lappd/photocathodeSizeY 191.5 mm
+
+/lappd/housingWindowSizeX 200.5 mm
+/lappd/housingWindowSizeY 200.5 mm
+/lappd/housingWindowThickness 10 mm # z direction
+
+/lappd/housingSizeX 320.5 mm 
+/lappd/housingSizeY 220.5 mm
+/lappd/housingThickness 110 mm # z direction
+
+/lappd/airGapThickness 40 mm # z direction
+/lappd/photocathodeWindowThickness 0.5 mm # z direction
+/lappd/photocathodeGapThickness 0.5 mm # z direction
+

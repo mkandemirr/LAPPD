@@ -1,0 +1,62 @@
+/control/alias lappdModel lappd
+
+#lappd_envelopeLV
+/vis/geometry/set/visibility {lappdModel}_envelopeLV 0 false
+/vis/geometry/set/forceWireframe {lappdModel}_envelopeLV 0 false
+/vis/geometry/set/colour {lappdModel}_envelopeLV 0 0.1 0.4 0.6 0.3
+
+#lappd_housingLV
+/vis/geometry/set/visibility {lappdModel}_housingLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_housingLV 0 false
+/vis/geometry/set/colour {lappdModel}_housingLV 0 0.996 0.992 0.816 0.4 #cream color
+
+#lappd_housingWindowLV
+/vis/geometry/set/visibility {lappdModel}_housingWindowLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_housingWindowLV 0 false
+/vis/geometry/set/colour {lappdModel}_housingWindowLV 0 0.6 0.8 1.0 0.3
+
+#lappd_airGapLV
+/vis/geometry/set/visibility {lappdModel}_airGapLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_airGapLV 0 false
+/vis/geometry/set/colour {lappdModel}_airGapLV 0 0.8 0.8 0.8 0.1 #gap color
+
+#lappd_photocathodeWindowLV
+/vis/geometry/set/visibility {lappdModel}_photocathodeWindowLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_photocathodeWindowLV 0 false
+/vis/geometry/set/colour {lappdModel}_photocathodeWindowLV 0 0.6 0.8 1.0 0.3
+
+#lappd_PhotocathodeGapLV
+/vis/geometry/set/visibility {lappdModel}_photocathodeGapLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_photocathodeGapLV 0 false
+/vis/geometry/set/colour {lappdModel}_photocathodeGapLV 0 0.8 0.8 0.8 0.1 #gap color
+
+#lappd_PhotocathodeLV
+/vis/geometry/set/visibility {lappdModel}_photocathodeLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_photocathodeLV 0 false
+/vis/geometry/set/colour {lappdModel}_photocathodeLV 0 0.0 0.5 0.0 0.7
+
+#mcp
+/vis/geometry/set/visibility {lappdModel}_mcpLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_mcpLV 0 false
+/vis/geometry/set/colour {lappdModel}_mcpLV 0 1.0 0.2 0.1 0.4
+
+
+#activeLayerLV
+/vis/geometry/set/visibility {lappdModel}_activeLayerLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_activeLayerLV 0 false
+/vis/geometry/set/colour {lappdModel}_activeLayerLV 0 1.0 0.7 0.8 0.9
+
+#inactiveLayerLV
+/vis/geometry/set/visibility {lappdModel}_inactiveLayerLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_inactiveLayerLV 0 false
+/vis/geometry/set/colour {lappdModel}_inactiveLayerLV 0 1.0 0.6 0.7 0.8
+
+#frontSpacerLVLV
+/vis/geometry/set/visibility {lappdModel}_frontSpacerLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_frontSpacerLV 0 false
+/vis/geometry/set/colour {lappdModel}_frontSpacerLV 0 0.9 0.1 0.4 0.9
+
+#backSpacerLVLV
+/vis/geometry/set/visibility {lappdModel}_backSpacerLV 0 true
+/vis/geometry/set/forceWireframe {lappdModel}_backSpacerLV 0 false
+/vis/geometry/set/colour {lappdModel}_backSpacerLV 0 0.9 0.1 0.4 0.9

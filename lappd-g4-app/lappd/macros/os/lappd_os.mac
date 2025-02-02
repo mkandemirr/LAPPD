@@ -1,0 +1,16 @@
+#lappd_os 
+/control/alias osName lappd
+/control/alias dataDirectory lappd/data/surface_mpt/{osName}
+
+/mpt/{osName}/addProperty REALRINDEX {dataDirectory}/realRIndex.txt nm unitless
+/mpt/{osName}/addProperty IMAGINARYRINDEX {dataDirectory}/imaginaryRIndex.txt nm unitless
+/mpt/{osName}/addProperty EFFICIENCY {dataDirectory}/efficiency.txt nm unitless 
+
+# If you comment out the two lines below, all photons hitting the photocathode surface will be detected!
+#/mpt/{osName}/addProperty EFFICIENCY {dataDirectory}/efficiency.txt nm unitless false false 1.
+#/mpt/{osName}/addProperty REFLECTIVITY {dataDirectory}/efficiency.txt nm unitless false false 0.
+
+/os/{osName}/model glisur
+/os/{osName}/type dielectric_metal
+/os/{osName}/finish polished
+
