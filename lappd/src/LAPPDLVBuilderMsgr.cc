@@ -110,15 +110,34 @@ mBuilder(builder)
   usage        = "[usage] "+ commandPath + " housingThickness";
   
  
- 	mHousingThicknessCmd = new G4UIcmdWithADoubleAndUnit(commandPath, this);
+  mHousingThicknessCmd = new G4UIcmdWithADoubleAndUnit(commandPath, this);
   mHousingThicknessCmd->SetGuidance(usage);
   mHousingThicknessCmd->AvailableForStates(G4State_PreInit,G4State_Init);
   mHousingThicknessCmd->SetToBeBroadcasted(false);
   
-  
-  
-  
   //-------Command 9----------
+  commandName  = "photocathodePositionX";
+  commandPath  = commandDirectory + commandName;
+  usage        = "[usage] "+ commandPath + " photocathodePositionX";
+  
+ 
+  mPhotocathodePosXCmd = new G4UIcmdWithADoubleAndUnit(commandPath, this);
+  mPhotocathodePosXCmd->SetGuidance(usage);
+  mPhotocathodePosXCmd->AvailableForStates(G4State_PreInit,G4State_Init);
+  mPhotocathodePosXCmd->SetToBeBroadcasted(false);
+  
+  //-------Command 10----------
+  commandName  = "photocathodePositionY";
+  commandPath  = commandDirectory + commandName;
+  usage        = "[usage] "+ commandPath + " photocathodePositionY";
+  
+ 
+  mPhotocathodePosYCmd = new G4UIcmdWithADoubleAndUnit(commandPath, this);
+  mPhotocathodePosYCmd->SetGuidance(usage);
+  mPhotocathodePosYCmd->AvailableForStates(G4State_PreInit,G4State_Init);
+  mPhotocathodePosYCmd->SetToBeBroadcasted(false);
+  
+  //-------Command 11----------
   commandName  = "airGapThickness";
   commandPath  = commandDirectory+commandName;
   usage        = "[usage] "+ commandPath + " airGapThickness";
@@ -129,7 +148,7 @@ mBuilder(builder)
   mAirGapThicknessCmd->AvailableForStates(G4State_PreInit,G4State_Init);
   mAirGapThicknessCmd->SetToBeBroadcasted(false);
   
-  //-------Command 10----------
+  //-------Command 12----------
   commandName  = "photocathodeWindowThickness";
   commandPath  = commandDirectory+commandName;
   usage        = "[usage] "+ commandPath + " photocathodeWindowThickness";
@@ -140,36 +159,26 @@ mBuilder(builder)
   mPhotocathodeWindowThicknessCmd->AvailableForStates(G4State_PreInit,G4State_Init);
   mPhotocathodeWindowThicknessCmd->SetToBeBroadcasted(false);
   
+
   
-   //-------Command 11----------
-  commandName  = "photocathodeGapThickness";
-  commandPath  = commandDirectory+commandName;
-  usage        = "[usage] "+ commandPath + " photocathodeGapThickness";
-  
- 
- 	mPhotocathodeGapThicknessCmd = new G4UIcmdWithADoubleAndUnit(commandPath, this);
-  mPhotocathodeGapThicknessCmd->SetGuidance(usage);
-  mPhotocathodeGapThicknessCmd->AvailableForStates(G4State_PreInit,G4State_Init);
-  mPhotocathodeGapThicknessCmd->SetToBeBroadcasted(false);
-  
-  //-------Command 12----------
+  //-------Command 13----------
   commandName  = "housingWindowMatName";
   commandPath  = commandDirectory+commandName;
   usage        = "[usage] "+ commandPath + " housingWindowMatName";
   
  
- 	mHousingWindowMatNameCmd = new G4UIcmdWithAString(commandPath, this);
+  mHousingWindowMatNameCmd = new G4UIcmdWithAString(commandPath, this);
   mHousingWindowMatNameCmd->SetGuidance(usage);
   mHousingWindowMatNameCmd->AvailableForStates(G4State_PreInit,G4State_Init);
   mHousingWindowMatNameCmd->SetToBeBroadcasted(false);
   
-  //-------Command 13----------
+  //-------Command 14----------
   commandName  = "photocathodeWindowMatName";
   commandPath  = commandDirectory+commandName;
   usage        = "[usage] "+ commandPath + " photocathodeWindowMatName";
   
  
- 	mPhotocathodeWindowMatNameCmd = new G4UIcmdWithAString(commandPath, this);
+  mPhotocathodeWindowMatNameCmd = new G4UIcmdWithAString(commandPath, this);
   mPhotocathodeWindowMatNameCmd->SetGuidance(usage);
   mPhotocathodeWindowMatNameCmd->AvailableForStates(G4State_PreInit,G4State_Init);
   mPhotocathodeWindowMatNameCmd->SetToBeBroadcasted(false);
@@ -184,21 +193,23 @@ mBuilder(builder)
 LAPPDLVBuilderMsgr::~LAPPDLVBuilderMsgr()
 {
   //delete mDir;  
-  delete mEnableStripsCmd;
- 	delete mPhotocathodeSizeXCmd; 
- 	delete mPhotocathodeSizeYCmd;
- 	delete mHousingSizeXCmd;
- 	delete mHousingSizeYCmd;
- 	delete mHousingThicknessCmd;
- 	delete mHousingWindowSizeXCmd;
- 	delete mHousingWindowSizeYCmd;
- 	delete mHousingWindowThicknessCmd;
- 	delete mAirGapThicknessCmd;
- 	delete mPhotocathodeWindowThicknessCmd;
- 	delete mPhotocathodeGapThicknessCmd;
- 	
- 	delete mHousingWindowMatNameCmd;
- 	delete mPhotocathodeWindowMatNameCmd;
+   delete mEnableStripsCmd;
+   delete mPhotocathodeSizeXCmd; 
+   delete mPhotocathodeSizeYCmd;
+   delete mHousingSizeXCmd;
+   delete mHousingSizeYCmd;
+   delete mHousingThicknessCmd;
+   delete mHousingWindowSizeXCmd;
+   delete mHousingWindowSizeYCmd;
+   delete mPhotocathodePosXCmd;
+   delete mPhotocathodePosYCmd;
+   delete mHousingWindowThicknessCmd;
+   delete mAirGapThicknessCmd;
+   delete mPhotocathodeWindowThicknessCmd;
+   
+
+   delete mHousingWindowMatNameCmd;
+   delete mPhotocathodeWindowMatNameCmd;
  	
 }
 
@@ -246,7 +257,19 @@ void LAPPDLVBuilderMsgr::SetNewValue(G4UIcommand* command,G4String newValue)
 	  mBuilder->SetHousingWindowSizeY(mHousingWindowSizeYCmd->
 		                              GetNewDoubleValue(newValue) );
 	  
-	}else if( command == mHousingWindowThicknessCmd )
+	}else if( command == mPhotocathodePosXCmd )
+	{
+	  mBuilder->SetPhotocathodePositionX(mPhotocathodePosXCmd->
+		                              GetNewDoubleValue(newValue) );
+	  
+	}else if( command == mPhotocathodePosYCmd )
+	{
+	  mBuilder->SetPhotocathodePositionY(mPhotocathodePosYCmd->
+		                              GetNewDoubleValue(newValue) );
+	  
+	}
+	
+	else if( command == mHousingWindowThicknessCmd )
 	{
 	  mBuilder->SetHousingWindowThickness(mHousingWindowThicknessCmd->
 		                              GetNewDoubleValue(newValue) );
@@ -255,7 +278,7 @@ void LAPPDLVBuilderMsgr::SetNewValue(G4UIcommand* command,G4String newValue)
 	
 	else if( command == mAirGapThicknessCmd )
 	{
-	  mBuilder->SetAirGapThickness(mAirGapThicknessCmd->
+	  mBuilder->SetAirGaphickness(mAirGapThicknessCmd->
 		                              GetNewDoubleValue(newValue) );
 	  
 	}else if( command == mPhotocathodeWindowThicknessCmd )
@@ -263,14 +286,7 @@ void LAPPDLVBuilderMsgr::SetNewValue(G4UIcommand* command,G4String newValue)
 	  mBuilder->SetPhotocathodeWindowThickness(mPhotocathodeWindowThicknessCmd->
 		                                         GetNewDoubleValue(newValue) );
 	  
-	}else if( command == mPhotocathodeGapThicknessCmd  )
-	{
-	  mBuilder->SetPhotocathodeGapThickness(mPhotocathodeGapThicknessCmd->
-		                              GetNewDoubleValue(newValue) );
-	  
-	}
-	
-	else if( command == mHousingWindowMatNameCmd  )
+	}else if( command == mHousingWindowMatNameCmd  )
 	{
 	  mBuilder->SetHousingWindowMaterialName(newValue );
 	  

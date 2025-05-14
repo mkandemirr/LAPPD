@@ -36,8 +36,8 @@ G4VPhysicalVolume* DetectorPVBuilder::Build()
 
 
   //Detector
-  G4double detSizeX = 250*cm;
-  G4double detSizeY = 250*cm;
+  G4double detSizeX = 280*cm;
+  G4double detSizeY = 300*cm;
   G4double detSizeZ = 250*cm;
 
   G4Box* detSolid = new G4Box(mModelName + "DetectorSolid", 
@@ -64,8 +64,8 @@ G4VPhysicalVolume* DetectorPVBuilder::Build()
   G4int numY = 6;  // number of lappd along y
 
   // Boşluk dahil LAPPD aralıkları
-  G4double spacingX = 400.0 * mm;  // X yönündeki boşluk dahil toplam aralık
-  G4double spacingY = 400.0 * mm;  // Y yönündeki boşluk dahil toplam aralık
+  G4double spacingX = 500.0 * mm;  // X yönündeki boşluk dahil toplam aralık
+  G4double spacingY = 500.0 * mm;  // Y yönündeki boşluk dahil toplam aralık
   G4double zPos  = 1000 * mm;   // LAPPD'lerin Z konumu
 
 

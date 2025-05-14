@@ -31,8 +31,8 @@ class LAPPDLVBuilder : public VComponentBuilder<G4LogicalVolume> {
     void SetInputParametersWithAMacroFile();
     void SetVisAttributes();
     void BuildPhotocathodeSurface(
-      G4PVPlacement* photoCathodePV,
-      G4PVPlacement* photocathodeGapPV
+      G4PVPlacement* photocathodeWindowPV,
+      G4PVPlacement* photocathodePV
       );
       
     void BuildHousingSurface(G4LogicalVolume* housingLV);
@@ -49,15 +49,19 @@ class LAPPDLVBuilder : public VComponentBuilder<G4LogicalVolume> {
     
     void SetHousingSizeX(G4double x);
     void SetHousingSizeY(G4double y);
+    
+    //No need this! it can be deleted later!
     void SetHousingThickness(G4double thickness);
     
     
-    void SetAirGapThickness(G4double thickness);
+    void SetAirGaphickness(G4double thickness);
     void SetPhotocathodeWindowThickness(G4double thickness);
-    void SetPhotocathodeGapThickness(G4double thickness);
-  
+   
     void SetHousingWindowMaterialName(const G4String& name);
     void SetPhotocathodeWindowMaterialName(const G4String& name);
+    
+    void SetPhotocathodePositionX(G4double posX);
+    void SetPhotocathodePositionY(G4double posY);
     
   private:
     LAPPDLVBuilderMsgr *mMessenger;
@@ -98,23 +102,21 @@ class LAPPDLVBuilder : public VComponentBuilder<G4LogicalVolume> {
     G4double mPhotocathodeWindowHalfSizeY;
     G4double mPhotocathodeWindowHalfSizeZ;
     
-    // PhotocathodeGap
-    G4double mPhotocathodeGapHalfSizeX;
-    G4double mPhotocathodeGapHalfSizeY;
-    G4double mPhotocathodeGapHalfSizeZ;
-
+    
     // Photocathode
     G4double mPhotocathodeHalfSizeX;
     G4double mPhotocathodeHalfSizeY;
     G4double mPhotocathodeHalfSizeZ;
 
+    //Photocathode position wrt its mother
+    G4double mPhotocathodePosX;
+    G4double mPhotocathodePosY;  
     
     //FrontSpacer
     G4double mFrontSpacerHalfSizeX;
     G4double mFrontSpacerHalfSizeY;
     G4double mFrontSpacerHalfSizeZ;
 
-    G4double mFrontSpacerPhotocathodeGap;
 
     //BackSpacer
     G4double mBackSpacerHalfSizeX;

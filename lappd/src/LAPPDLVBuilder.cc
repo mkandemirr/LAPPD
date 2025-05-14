@@ -65,63 +65,65 @@ void LAPPDLVBuilder::Initialize()
   //activeLayer
   mNumberOfActiveLayer = 28; 
   mActiveLayerWidth = 5.2 *mm; //along x
-  mActiveLayerThickness = 2*mm; //along z
+  mActiveLayerThickness = 1*mm; //along z
 
   //InactiveLayer 
   mNumberOfInactiveLayer = 27;
 
   mInactiveLayerWidth = 1.7 *mm; //along x
-  mInactiveLayerThickness = 2*mm; //along z
+  mInactiveLayerThickness = 1*mm; //along z
 
-  mPhotocathodeHalfSizeZ = 2 * mm;
+  mPhotocathodeHalfSizeZ = 1 * mm;
   
    //FrontSpacer
   mFrontSpacerHalfSizeX = 1 * mm;
   mFrontSpacerHalfSizeY = (95.75 * sqrt(2) - 2) * mm;
-  mFrontSpacerHalfSizeZ = 1 * mm; //thickness
+  mFrontSpacerHalfSizeZ = 0.5 * mm; //thickness
 
-  mFrontSpacerPhotocathodeGap = 1 * mm;
-
+ 
   //BackSpacer
   mBackSpacerHalfSizeX = 1 * mm;
   mBackSpacerHalfSizeY = (95.75 * sqrt(2) - 2) * mm;
-  mBackSpacerHalfSizeZ = 1 * mm; //thickness
+  mBackSpacerHalfSizeZ = 0.5 * mm; //thickness
 
   mBackSpacerFrontSpacerGap = 0 * mm;
 
 
-  mSpacersGap = 8 * mm; //centre distance
+  mSpacersGap = 6 * mm; //centre distance
 
     
   //MCP
   mMcpHalfSizeX = 95. * mm;
   mMcpHalfSizeY = 95. * mm;
-  mMcpHalfSizeZ = 1 * mm;
+  mMcpHalfSizeZ = 0.5 * mm;
 
-  //****The belows are controlled by UI commands!*******
+  //******The belows are controlled by UI commands!*******//
   
+  // Housing
+  mHousingHalfSizeX = 165 * mm;
+  mHousingHalfSizeY = 215 * mm;
+  mHousingHalfSizeZ = 30 * mm ;
+  
+  //HousingWindow
   mHousingWindowHalfSizeX = 95.75 * mm;
   mHousingWindowHalfSizeY = 95.75 * mm;
   mHousingWindowHalfSizeZ = 5 * mm;
-  
-  // Housing
-  mHousingHalfSizeX = 95.75 + 5 * mm;
-  mHousingHalfSizeY = 95.75 + 5 * mm;
-  mHousingHalfSizeZ = 55 * mm ;
-  
-  //z direction
-  mAirGapHalfSizeZ =  20 * mm;
-  mPhotocathodeWindowHalfSizeZ = 0.25 * mm;
-  mPhotocathodeGapHalfSizeZ = 0.25 * mm;
   
   // Photocathode
   mPhotocathodeHalfSizeX = 95.75 * mm;
   mPhotocathodeHalfSizeY = 95.75 * mm;
   
-  //Materials
+  
+  //z direction
+  mAirGapHalfSizeZ =  7.5 * mm;
+  mPhotocathodeWindowHalfSizeZ = 0.25 * mm;
+  
+  
+  mPhotocathodePosX = 0. * mm;
+  mPhotocathodePosY = -45. * mm;
+  
   mPhotocathodeWindowMatName = "borosilicateGlass";
   mHousingWindowMatName = "glass";
-  
     
 }
 
@@ -147,8 +149,27 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
   G4Material* rock = LAPPDMaterialFactory::GetInstance()->
                                 Get("rock");
   
+  auto vis_envelope = new G4VisAttributes(G4Colour(0.1, 0.4, 0.6, 0.3));
+  auto vis_housing = new G4VisAttributes(G4Colour(0.1, 0.2, 0.5, 0.43));
+  
+  auto vis_housingWindow = new G4VisAttributes(G4Colour(0.1, 0.75, 0.65, 0.93));
+  
+  auto vis_airGap = new G4VisAttributes(G4Colour(0.1, 0.45, 0.75, 0.89));
+  
+  auto vis_frontSpacer = new G4VisAttributes(G4Colour(0.9, 0.1, 0.4, 0.9));
+  auto vis_backSpacer = new G4VisAttributes(G4Colour(1.0, 0.5, 0.5, 0.1));
+  
+  auto vis_photocathodeWindow = new G4VisAttributes(G4Colour(1.0, 0.7, 0.7, 0.4));
+  auto vis_photocathode = new G4VisAttributes(G4Colour(1.0, 0.4, 0.7, 0.3));
+  auto vis_mcp = new G4VisAttributes(G4Colour(1.0, 0.2, 0.1, 0.4));
 
-  //Dependent parameters should be here! G4InitState
+  
+
+  auto vis_activeLayer = new G4VisAttributes(G4Colour(1.0, 0.7, 0.8, 0.9));
+  auto vis_inactiveLayer = new G4VisAttributes(G4Colour(1.0, 0.6, 0.7, 0.8));
+  
+  
+  //Dependent parameters should be here! InitState
   
   //AirGap
   G4double housingSkinSurfaceTolerance = 0.001 * mm;
@@ -159,19 +180,15 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
   mPhotocathodeWindowHalfSizeX = mPhotocathodeHalfSizeX;
   mPhotocathodeWindowHalfSizeY = mPhotocathodeHalfSizeY;
   
-  //PhotocathodeToWindowGap
-  mPhotocathodeGapHalfSizeX = mPhotocathodeWindowHalfSizeX;
-  mPhotocathodeGapHalfSizeY = mPhotocathodeWindowHalfSizeY;
   
   // Envelope
-  mEnvelopeHalfSizeX = mHousingHalfSizeX + 1 * mm;
-  mEnvelopeHalfSizeY = mHousingHalfSizeY + 1 * mm;
-  mEnvelopeHalfSizeZ = mHousingHalfSizeZ + 1 * mm; 
+  mEnvelopeHalfSizeX = mHousingHalfSizeX + 0.1 * mm;
+  mEnvelopeHalfSizeY = mHousingHalfSizeY + 0.1 * mm;
+  mEnvelopeHalfSizeZ = mHousingHalfSizeZ + 0.1 * mm; 
   
   
-  //Define material,solid and logic
 
-  //1. Envelope
+  //Envelope
   G4Material* envMat = mEnvelopeMat;
   G4Box *envelopeSolid = new G4Box(mPrefix + "_envelopeSolid", 
                                     mEnvelopeHalfSizeX, 
@@ -181,8 +198,9 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
   auto envelopeLV = new G4LogicalVolume(envelopeSolid, envMat, 
                                         mPrefix + "_envelopeLV");
                              
+  envelopeLV->SetVisAttributes(vis_envelope); 
   
-  //2. LAPPDHousing
+  //LAPPDHousing.
   G4Material * housingMat = LAPPDMaterialFactory::GetInstance()->Get("air");
   G4Box *housingSolid = new G4Box(mPrefix + "_housingSolid", 
                                       mHousingHalfSizeX, 
@@ -193,9 +211,10 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                             housingMat, 
                             mPrefix + "_housingLV");
                              
-
-    
-  //3. HousingWindow
+  housingLV->SetVisAttributes(vis_housing);
+  
+  
+  //HousingWindow
   G4Material *housingWindowMat = LAPPDMaterialFactory::GetInstance()->
                                   Get(mHousingWindowMatName);
   
@@ -207,9 +226,12 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
   auto housingWindowLV = new G4LogicalVolume(housingWindowSolid, 
                                           housingWindowMat, 
                                           mPrefix + "_housingWindowLV");
-                               
+                             
+  housingWindowLV->SetVisAttributes(vis_housingWindow);
   
-  //4. AirGap
+  
+  
+  //AirGap
   G4Material *airGapMat = LAPPDMaterialFactory::GetInstance()->Get("air");
   G4Box *airGapSolid = new G4Box(mPrefix + "_airGapSolid", 
                                 mAirGapHalfSizeX, 
@@ -220,8 +242,12 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                             airGapMat, 
                             mPrefix + "_airGapLV");
                              
+  airGapLV->SetVisAttributes(vis_airGap);
+
+
   
-  //5. PhotocathodeWindow or LAPPD window
+  
+  //PhotocathodeWindow or LAPPD window
   G4Material* photocathodeWindowMat = LAPPDMaterialFactory::GetInstance()->
                               Get(mPhotocathodeWindowMatName);
   G4Box *photocathodeWindowSolid = new G4Box(mPrefix + 
@@ -234,21 +260,10 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                                   photocathodeWindowMat, 
                                   mPrefix + "_photocathodeWindowLV");
                              
+  photocathodeWindowLV->SetVisAttributes(vis_photocathodeWindow);
   
-  //6. PhotocathodeGap                            
-  G4Material* photocathodeGapMat = LAPPDMaterialFactory::GetInstance()->
-                                Get("pmtVacuum");
-  G4Box * photocathodeGapSolid = new G4Box(mPrefix + "_photocathodeGapSolid",  
-                                mPhotocathodeGapHalfSizeX,  
-                                mPhotocathodeGapHalfSizeY, 
-                                mPhotocathodeGapHalfSizeZ);
-                                
-  auto  photocathodeGapLV = new G4LogicalVolume( photocathodeGapSolid, 
-                               photocathodeGapMat, 
-                               mPrefix +"_photocathodeGapLV");
-                             
   
-  //7. Photocathode                            
+  //Photocathode                            
   G4Material* photocathodeMat = LAPPDMaterialFactory::GetInstance()->
                                 Get("K2NaSb");
   G4Box * photocathodeSolid = new G4Box(mPrefix + "_photocathodeSolid",  
@@ -258,15 +273,26 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                                 
   auto  photocathodeLV = new G4LogicalVolume( photocathodeSolid, 
                            photocathodeMat, 
-                           mPrefix +"_photocathodeLV"); //do not change
+                           mPrefix +"_PhotocathodeLV"); //do not change
                                                              //this name!!
                              
+  photocathodeLV->SetVisAttributes(vis_photocathode);
   
   
+  
+  
+  
+  SetVisAttributes();
+  
+  
+  
+  
+    
   //PLACEMENT
   
   //1. Place HousingWindow in Housing
-  G4double housingWindowPosZ = mHousingHalfSizeZ - mHousingWindowHalfSizeZ;
+  G4double housingWindowPosZ = mHousingHalfSizeZ - 
+                            mHousingWindowHalfSizeZ;
   
   G4ThreeVector housingWindowPos(0,0,housingWindowPosZ);
   
@@ -280,7 +306,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     checkOverlaps); 
     
     
-  //2. Place AirGap in Housing
+  //1. Place AirGap in Housing
   G4double airGapPosZ = housingWindowPosZ - mHousingWindowHalfSizeZ - 
                           mAirGapHalfSizeZ;
                             
@@ -296,12 +322,13 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     0,
     checkOverlaps);   
    
-     
-  //3. Place PhotocathodeWindow in Housing
+      
+  //2. Place PhotocathodeWindow in Housing
   G4double photocathodeWindowPosZ = airGapPosZ - mAirGapHalfSizeZ - 
                              mPhotocathodeWindowHalfSizeZ;
   
-  G4ThreeVector photocathodeWindowPos(0,0,photocathodeWindowPosZ);
+  G4ThreeVector photocathodeWindowPos(mPhotocathodePosX, mPhotocathodePosY,
+                                     photocathodeWindowPosZ);
   
   auto photocathodeWindowPV = new G4PVPlacement(0, 
     photocathodeWindowPos, 
@@ -313,29 +340,14 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     checkOverlaps);
     
     
-  //4. Place PhotocathodeGap in Housing
-  G4double photocathodeGapPosZ = photocathodeWindowPosZ - 
-                                 mPhotocathodeWindowHalfSizeZ - 
-                                 mPhotocathodeGapHalfSizeZ;
   
-  G4ThreeVector photocathodeGapPos(0, 0, photocathodeGapPosZ);
-  
-  auto photocathodeGapPV = new G4PVPlacement(0, 
-    photocathodeGapPos, 
-    photocathodeGapLV, 
-    mPrefix + "_photocathodeGapPV", 
-    housingLV, 
-    false, 
-    0,
-    checkOverlaps);
- 
-  
-  //5. Place Photocathode in Housing
-  G4double photocathodePosZ = photocathodeGapPosZ - 
-                              mPhotocathodeGapHalfSizeZ - 
+  //3. Place Photocathode in Housing
+  G4double photocathodePosZ = photocathodeWindowPosZ - 
+                              mPhotocathodeWindowHalfSizeZ - 
                               mPhotocathodeHalfSizeZ;                            
   
-  G4ThreeVector photocathodePos(0., 0., photocathodePosZ);
+  G4ThreeVector photocathodePos(mPhotocathodePosX, 
+                                mPhotocathodePosY, photocathodePosZ);
   
   auto photocathodePV = new G4PVPlacement(0, 
     photocathodePos, 
@@ -349,7 +361,6 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
 
 
   //Just for visualization!
-  
   if (mEnableStrips) 
   {
   
@@ -364,6 +375,8 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                               rock, 
                               mPrefix + "_frontSpacerLV");
                                
+    frontSpacerLV->SetVisAttributes(vis_frontSpacer);
+    
     
     //BackSpacer
     G4Box *backSpacerSolid = new G4Box(mPrefix + "_backSpacerSolid", 
@@ -376,6 +389,8 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     auto backSpacerLV = new G4LogicalVolume(backSpacerSolid, rock, 
                                             mPrefix + "_backSpacerLV");
                                
+    backSpacerLV->SetVisAttributes(vis_backSpacer);
+    
     
     //MCP
     G4Box * mcpSolid = new G4Box(mPrefix + "_mcpSolid",  
@@ -386,6 +401,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     auto  mcpLV = new G4LogicalVolume( mcpSolid, rock, 
                                       mPrefix + "_mcpLV");
                                
+    mcpLV->SetVisAttributes(vis_mcp);
     
     //Stripts
     G4double activeLayerHalfSizeX =  mActiveLayerWidth*0.5;
@@ -401,8 +417,9 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     G4LogicalVolume* activeLayerLV = new G4LogicalVolume(activeLayerSolid, 
                                       rock, 
                                       mPrefix + "_activeLayerLV");
-    
-      
+    activeLayerLV->SetVisAttributes(vis_activeLayer); 
+     
+     
     //Inactive 
     G4double inactiveLayerHalfSizeX =  mInactiveLayerWidth*0.5;
     G4double inactiveLayerHalfSizeY =  mPhotocathodeHalfSizeY;
@@ -416,14 +433,18 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     G4LogicalVolume* inactiveLayerLV = new G4LogicalVolume(inactiveLayerSolid, 
                                         rock, 
                                         mPrefix + "_inactiveLayerLV");
-       
+    inactiveLayerLV->SetVisAttributes(vis_inactiveLayer);
+    
 
-    //6. Place spacers in housing
+
+    
+
+    //4. Place spacers in housing
     G4double frontSpacerPosZ = photocathodePosZ - mPhotocathodeHalfSizeZ - 
-                               mFrontSpacerPhotocathodeGap - 
                                mFrontSpacerHalfSizeZ;
     
-    G4ThreeVector frontSpacerPos(0.0, 0.0, frontSpacerPosZ);
+    G4ThreeVector frontSpacerPos(mPhotocathodePosX, mPhotocathodePosY, 
+                                 frontSpacerPosZ);
 
     G4RotationMatrix** frontSpacerRot = new G4RotationMatrix*[3];
     
@@ -432,7 +453,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     G4double backSpacerPosZ = frontSpacerPosZ - mFrontSpacerHalfSizeZ - 
                               mBackSpacerFrontSpacerGap - mBackSpacerHalfSizeZ;
     
-    G4ThreeVector backSpacerPos(0.0, 0.0, backSpacerPosZ);
+    G4ThreeVector backSpacerPos(mPhotocathodePosX, mPhotocathodePosY, backSpacerPosZ);
 
     G4RotationMatrix** backSpacerRot = new G4RotationMatrix*[3];
     
@@ -470,7 +491,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
      new G4PVPlacement(backSpacerRot[i], 
                       backSpacerPos,
                       frontSpacerLV, 
-                       mPrefix + "_spacer" + std::to_string(i) + "BackPV",  
+                       mPrefix + "_spacer" + std::to_string(i) + "_BackPV",  
                       housingLV, 
                       false, 
                       0,
@@ -482,10 +503,12 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                                       backSpacerTranslationZ);   
       
     }  
-     
-    // 7. Place two MCPs in housing
+    
+    
+    
+    // 5. Place two MCPs in housing
     G4double mcp1PosZ = backSpacerPosZ - mBackSpacerHalfSizeZ - mSpacersGap/2.;
-    G4ThreeVector mcp1Pos(0,0,mcp1PosZ);
+    G4ThreeVector mcp1Pos(mPhotocathodePosX, mPhotocathodePosY, mcp1PosZ);
     
     
     new G4PVPlacement(0, 
@@ -500,7 +523,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     G4double mcp2PosZ = mcp1PosZ - 2 * mFrontSpacerHalfSizeZ - 
                         2 * mBackSpacerHalfSizeZ - mSpacersGap;   
     
-    G4ThreeVector mcp2Pos(0,0,mcp2PosZ);
+    G4ThreeVector mcp2Pos(mPhotocathodePosX, mPhotocathodePosY, mcp2PosZ);
 
     new G4PVPlacement(0, 
         mcp2Pos, 
@@ -512,7 +535,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
         checkOverlaps);
     
        
-    // 8 .Place strips in housing
+    // 6 .Place strips in housing
       
     for (int i = 0; i< mNumberOfActiveLayer; ++i)
     {
@@ -523,7 +546,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
                     mInactiveLayerWidth * 0.5 - 
                     i * (mInactiveLayerWidth + mActiveLayerWidth);
       
-      G4double y = 0.;
+      G4double y = mPhotocathodePosY;
       G4double gapStripsAndHousing = 1*mm; //along z
       G4double z = -mHousingHalfSizeZ + mActiveLayerThickness*0.5 + 
                     gapStripsAndHousing;
@@ -558,7 +581,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
   
   
    
-  // 9. Place housing in envelope.
+  // 7. Place housing in envelope.
   auto *housingPV = new G4PVPlacement(nullptr, 
     G4ThreeVector(0, 0, 0 * mm), 
     housingLV, 
@@ -569,9 +592,7 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
     true);  
     
   
-  SetVisAttributes();
-   
-  BuildPhotocathodeSurface(photocathodePV, photocathodeGapPV);
+  BuildPhotocathodeSurface(photocathodeWindowPV, photocathodePV);
    
   
   if (mUseEnvelope) 
@@ -591,8 +612,8 @@ G4LogicalVolume* LAPPDLVBuilder::Build()
 
 void LAPPDLVBuilder::BuildPhotocathodeSurface
 (
-  G4PVPlacement* photocathodePV,
-  G4PVPlacement* photocathodeGapPV
+  G4PVPlacement* photocathodeWindowPV,
+  G4PVPlacement* photocathodePV
 )
 {
   G4OpticalSurface* os = LAPPDOSFactory::GetInstance()->Get("lappd");
@@ -600,7 +621,7 @@ void LAPPDLVBuilder::BuildPhotocathodeSurface
   G4String mPrefix = "lappd";
   
   new G4LogicalBorderSurface(mPrefix + "_photocathodeSurface2",
-                                    photocathodeGapPV, 
+                                    photocathodeWindowPV, 
                                     photocathodePV,
                                     os
                                     );                                 
@@ -714,7 +735,7 @@ void LAPPDLVBuilder::SetHousingWindowThickness(G4double thickness)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void LAPPDLVBuilder::SetAirGapThickness(G4double thickness)
+void LAPPDLVBuilder::SetAirGaphickness(G4double thickness)
 {
   mAirGapHalfSizeZ = thickness * 0.5;
 }
@@ -724,13 +745,6 @@ void LAPPDLVBuilder::SetAirGapThickness(G4double thickness)
 void LAPPDLVBuilder::SetPhotocathodeWindowThickness(G4double thickness)
 {
   mPhotocathodeWindowHalfSizeZ = thickness * 0.5;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void LAPPDLVBuilder::SetPhotocathodeGapThickness(G4double thickness)
-{
-  mPhotocathodeGapHalfSizeZ = thickness * 0.5;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -746,5 +760,14 @@ void LAPPDLVBuilder::SetPhotocathodeWindowMaterialName(const G4String& name)
 {
   mPhotocathodeWindowMatName = name;
 }
-    
+
+void LAPPDLVBuilder::SetPhotocathodePositionX(G4double posX)
+{
+   mPhotocathodePosX = posX;
+}  
+
+void LAPPDLVBuilder::SetPhotocathodePositionY(G4double posY)
+{
+   mPhotocathodePosY = posY;
+}    
 

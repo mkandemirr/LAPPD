@@ -1,21 +1,26 @@
 #lappdGeoSettings
 /lappd/includeStrips true #just for visualization
 
-/lappd/photocathodeWindowMatName borosilicateGlass
 /lappd/housingWindowMatName glass
+/lappd/photocathodeWindowMatName borosilicateGlass
 
 /lappd/photocathodeSizeX 191.5 mm
 /lappd/photocathodeSizeY 191.5 mm
 
-/lappd/housingWindowSizeX 200.5 mm
-/lappd/housingWindowSizeY 200.5 mm
+/lappd/housingWindowSizeX 290 mm
+/lappd/housingWindowSizeY 390 mm
 /lappd/housingWindowThickness 10 mm # z direction
 
-/lappd/housingSizeX 320.5 mm 
-/lappd/housingSizeY 220.5 mm
-/lappd/housingThickness 110 mm # z direction
+/lappd/housingSizeX 330 mm 
+/lappd/housingSizeY 430 mm
+/lappd/housingThickness 60 mm # z direction #when stripts included, if you see overlaps just increase this value!
 
-/lappd/airGapThickness 40 mm # z direction
+/lappd/airGapThickness 15 mm # z direction
 /lappd/photocathodeWindowThickness 0.5 mm # z direction
-/lappd/photocathodeGapThickness 0.5 mm # z direction
+
+
+#photocathode position with respect to its mother volume, namely, housing
+/lappd/photocathodePositionX 0 mm
+/lappd/photocathodePositionY -45 mm
+
 

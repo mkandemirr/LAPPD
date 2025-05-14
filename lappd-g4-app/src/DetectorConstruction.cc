@@ -51,7 +51,7 @@ void DetectorConstruction::ConstructSDandField()
   
   G4SDManager::GetSDMpointer()->AddNewDetector(mPhotonSD.Get());
                        
-  G4String sdName = mModel + "_photocathodeLV";
+  G4String sdName = mModel + "_PhotocathodeLV";
   SetSensitiveDetector(sdName, mPhotonSD.Get(), true);
 
 }

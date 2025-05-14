@@ -44,10 +44,12 @@ class LAPPDLVBuilderMsgr: public G4UImessenger
     G4UIcmdWithADoubleAndUnit *mHousingSizeYCmd;
     G4UIcmdWithADoubleAndUnit *mHousingThicknessCmd;
     
+    G4UIcmdWithADoubleAndUnit *mPhotocathodePosXCmd;
+    G4UIcmdWithADoubleAndUnit *mPhotocathodePosYCmd;
+    
     //z direction
     G4UIcmdWithADoubleAndUnit *mAirGapThicknessCmd;
     G4UIcmdWithADoubleAndUnit *mPhotocathodeWindowThicknessCmd;
-    G4UIcmdWithADoubleAndUnit *mPhotocathodeGapThicknessCmd;
     
     G4UIcmdWithAString *mHousingWindowMatNameCmd; 
     G4UIcmdWithAString *mPhotocathodeWindowMatNameCmd; 
